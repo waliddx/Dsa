@@ -97,19 +97,19 @@ class LinkedList:
 
     def sort(self) -> None:
         ''' function to sort nodes from smallest int to biggest '''
-        currentNode = self.head
-        while currentNode:
-            minNode = currentNode
-            temp = currentNode.next
-            while temp:
-                if temp.value < minNode.value:
-                    temp.value, minNode.value = minNode.value, temp.value
-                temp = temp.next
-            currentNode = currentNode.next
+        switched = True
+        while switched:
+            switched = False
+            currentNode = self.head
+            while currentNode.next is not None:
+                if currentNode.value > currentNode.next.value:
+                    currentNode.value, currentNode.next.value = currentNode.next.value, currentNode.value
+                    switched = True
+                currentNode = currentNode.next
         return
     
     def reverse(self) -> None:
-        ''' funtion to reverse a linked list '''
+        ''' function to reverse a linked list '''
         length = self.length()
         if length <= 1:
             return 
@@ -129,7 +129,6 @@ class LinkedList:
         self.head = previousNode
         return 
 
-
 node_list = LinkedList()
 
 node_list.insertNode(5)
@@ -140,6 +139,5 @@ node_list.insertNode(1)
 node_list.insertNode(8)
 
 node_list.display()
-node_list.find()
-node_list.erase()
+node_list.sort()
 node_list.display()
