@@ -133,7 +133,7 @@ class LinkedList:
             currentNode = currentNode.next
         return False
 
-    def sort(self) -> None:
+    def sort(self, reverse=False) -> None:
         ''' function to sort nodes from smallest int to biggest '''
         switched = True
         while switched:
@@ -144,6 +144,9 @@ class LinkedList:
                     currentNode.value, currentNode.next.value = currentNode.next.value, currentNode.value
                     switched = True
                 currentNode = currentNode.next
+        if reverse:
+            #if reverse is True reverse the sorted linkedlist
+            self.reverse()
     
     def reverse(self) -> None:
         ''' function to reverse a linked list '''
@@ -218,7 +221,7 @@ class LinkedList:
             return
         
         currentNode = self.head
-        while currentNode.next:
+        while currentNode:
             currentNode = currentNode.next
 
         # return the None value to the head of the new linked list
@@ -227,21 +230,23 @@ class LinkedList:
         if sorted:
             self.sort()
         return
-
+        
 node_list = LinkedList()
 node_list2 = LinkedList()
 
 node_list.insertNode(5)
-node_list.insertNode(6)
-node_list.insertNode(9)
-node_list.insertNode(8)
 node_list.insertNode(12)
+node_list.insertNode(8)
 node_list.insertNode(21)
+node_list.insertNode(9)
+node_list.insertNode(6)
 
-node_list2.insertNode(20)
-node_list2.insertNode(15)
-node_list2.insertNode(7)
+node_list2.insertNode(31)
+node_list2.insertNode(58)
+node_list2.insertNode(0)
+node_list2.insertNode(2)
+node_list2.insertNode(13)
 
 node_list.display()
-node_list.remove_by_value(9)
+node_list.sort(reverse=True)
 node_list.display()
