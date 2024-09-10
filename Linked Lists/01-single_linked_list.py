@@ -31,7 +31,8 @@ class LinkedList:
         while currentNode:
             print(f"{currentNode.value}", end=" -> ")
             currentNode = currentNode.next
-        print("None")
+        if self.head:
+            print("None")
     
     def length(self) -> int:
         ''' function to get the length of the linked list '''
@@ -84,6 +85,10 @@ class LinkedList:
             currentNode = currentNode.next
         return  None
 
+    def clear(self):
+        self.head = None
+        return
+    
     def erase(self, index=None) -> None:
         ''' function to erase a Node by it's index '''
         length = self.length()
@@ -222,5 +227,5 @@ node_list2.insertNode(15)
 node_list2.insertNode(7)
 
 node_list.display()
-print(node_list.find_index_by_value(100))
+node_list.clear()
 node_list.display()
