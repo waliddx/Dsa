@@ -12,7 +12,7 @@ class LinkedList:
     def __init__(self, head=None) -> None:
         self.head = head
     
-    def insertNode(self, value) -> None:
+    def insert_node(self, value) -> None:
         '''function to insert a new node to the linked list'''
         node = Node(value)
         if self.head is None:
@@ -49,11 +49,11 @@ class LinkedList:
         if index is not None:
             # raise typeerror if index is not an int datatype
             if type(index) is not int:
-                raise TypeError("'error' index is not an integer")
+                raise TypeError("[error] index is not an integer")
 
             # raise indexerror if index is out of range
             elif index >= length or index < 0:
-                raise  IndexError("'find' Index out of range")
+                raise  IndexError("[find] Index outof range")
 
         else:
             index = length - 1
@@ -70,7 +70,7 @@ class LinkedList:
     def find_index_by_value(self, val=None) -> Union[str, int, None]:
         ''' function to return index of first val found in linkedlist'''
         if val is None:
-            raise TypeError("'find_index_by_value' val parameters is a Nonetype")
+            raise TypeError("[find_index_by_value] val parameters is a Nonetype")
         
         if self.head is None:
             return "linked list is empty"
@@ -97,11 +97,11 @@ class LinkedList:
         
         # raise TypeError if index passed is not integer
         if not isinstance(index, int):
-            raise TypeError(f"'erase' function expects an integer not {type(index)}")
+            raise TypeError(f"[erase] function expects an integer in 'index'")
         
         # raise IndexError if index passed is out of range
         if index < 0 or index >= length:
-            raise IndexError("'erase' index out of range")
+            raise IndexError("[erase] index out of range")
         
         # erase first node simply
         if index == 0:
@@ -117,22 +117,23 @@ class LinkedList:
         if currentNode.next:
             currentNode.next = currentNode.next.next
 
-    def remove_by_value(self, val=None) -> bool:
+    def remove_by_value(self, val=None) -> None:
         if val is None:
-            raise TypeError("'remove_by_value' this function expects one argument")
+            raise TypeError("[remove_by_value] this function expects one argument")
+        if not self.head:
+            return 
         
-        if self.head and self.head.value == val:
+        while self.head and self.head.value == val:
             self.head = self.head.next
-            return True
-        
+
         currentNode = self.head
-        while currentNode.next is not None:
+
+        while currentNode and currentNode.next:
             if currentNode.next.value == val:
                 currentNode.next = currentNode.next.next
-                return True
-            currentNode = currentNode.next
-        return False
-
+            else:
+                currentNode = currentNode.next
+ 
     def sort(self, reverse=False) -> None:
         ''' function to sort nodes from smallest int to biggest '''
         switched = True
@@ -170,7 +171,7 @@ class LinkedList:
 
         # raise error if left and right are not integeres
         if not isinstance(left, int) and not isinstance(right, int):
-            raise TypeError("'reverse_between' left and right parameters are a Nonetype, expected intergers")
+            raise TypeError("[reverse_between] expected integersfor 'left' and 'right'")
 
         # swap index if left bigger than right to avoid conflict
         if left > right:
@@ -178,7 +179,7 @@ class LinkedList:
 
         # raise error if left and right are not in the linkedlist range
         if left < 0 or right >= length or left > right:
-            raise IndexError("'reverse_between' indexes are out of range")
+            raise IndexError("[reverse_between] indexes are out of range")
         
         # no need to go through loops if left = right
         if left == right:
@@ -208,8 +209,7 @@ class LinkedList:
         left_previous.next = previous
 
         if left == 0:
-            self.head = previous
-            return         
+            self.head = previous       
     
     def merge(self, linked, sorted=False) -> None:
         ''' function to merge two linkedlist 
@@ -229,24 +229,23 @@ class LinkedList:
 
         if sorted:
             self.sort()
-        return
         
 node_list = LinkedList()
 node_list2 = LinkedList()
 
-node_list.insertNode(5)
-node_list.insertNode(12)
-node_list.insertNode(8)
-node_list.insertNode(21)
-node_list.insertNode(9)
-node_list.insertNode(6)
+node_list.insert_node(8)
+node_list.insert_node(5)
+node_list.insert_node(6)
+node_list.insert_node(5)
+node_list.insert_node(7)
+node_list.insert_node(5)
 
-node_list2.insertNode(31)
-node_list2.insertNode(58)
-node_list2.insertNode(0)
-node_list2.insertNode(2)
-node_list2.insertNode(13)
+node_list2.insert_node(31)
+node_list2.insert_node(58)
+node_list2.insert_node(0)
+node_list2.insert_node(2)
+node_list2.insert_node(13)
 
 node_list.display()
-node_list.sort(reverse=True)
+node_list.remove_by_value(5)
 node_list.display()
