@@ -89,7 +89,7 @@ class LinkedList:
         self.head = None
         return
     
-    def erase(self, index=None) -> None:
+    def remove(self, index=None) -> None:
         ''' function to erase a Node by it's index '''
         length = self.length()
         if index is None:
@@ -97,7 +97,7 @@ class LinkedList:
         
         # raise TypeError if index passed is not integer
         if not isinstance(index, int):
-            raise TypeError("'erase' index is not an integer")
+            raise TypeError(f"'erase' function expects an integer not {type(index)}")
         
         # raise IndexError if index passed is out of range
         if index < 0 or index >= length:
@@ -116,6 +116,22 @@ class LinkedList:
         # check if the next node is not None
         if currentNode.next:
             currentNode.next = currentNode.next.next
+
+    def remove_by_value(self, val=None) -> bool:
+        if val is None:
+            raise TypeError("'remove_by_value' this function expects one argument")
+        
+        if self.head and self.head.value == val:
+            self.head = self.head.next
+            return True
+        
+        currentNode = self.head
+        while currentNode.next is not None:
+            if currentNode.next.value == val:
+                currentNode.next = currentNode.next.next
+                return True
+            currentNode = currentNode.next
+        return False
 
     def sort(self) -> None:
         ''' function to sort nodes from smallest int to biggest '''
@@ -227,5 +243,5 @@ node_list2.insertNode(15)
 node_list2.insertNode(7)
 
 node_list.display()
-node_list.clear()
+node_list.remove_by_value(9)
 node_list.display()
