@@ -110,10 +110,7 @@ class LinkedList:
     
     def reverse(self) -> None:
         ''' function to reverse a linked list '''
-        length = self.length()
-        if length <= 1:
-            return 
-        
+
         previousNode = None
         currentNode = self.head
 
@@ -127,7 +124,7 @@ class LinkedList:
             currentNode = next_node
         # initialize the head with the last truthy element in the linked list
         self.head = previousNode
-        return 
+        return
 
 node_list = LinkedList()
 
@@ -139,5 +136,5 @@ node_list.insertNode(1)
 node_list.insertNode(8)
 
 node_list.display()
-node_list.sort()
+node_list.reverse()
 node_list.display()
