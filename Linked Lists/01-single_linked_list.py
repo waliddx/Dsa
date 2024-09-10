@@ -2,6 +2,7 @@
 A Linked List is, as the word implies, a list where the nodes are linked together. Each node contains data and a pointer.
 The way they are linked together is that each node points to where in the memory the next node is placed.
 """
+from typing import Union
 class Node:
     def __init__(self, value, next=None) -> None:
         self.value = value
@@ -64,6 +65,24 @@ class LinkedList:
                 return 
             currentNode = currentNode.next
             current_idx += 1
+    
+    def find_index_by_value(self, val=None) -> Union[str, int, None]:
+        ''' function to return index of first val found in linkedlist'''
+        if val is None:
+            raise TypeError("'find_index_by_value' val parameters is a Nonetype")
+        
+        if self.head is None:
+            return "linked list is empty"
+        
+        currentNode = self.head
+        current_idx = 0
+
+        while currentNode:
+            if currentNode.value == val:
+                return  current_idx
+            current_idx += 1
+            currentNode = currentNode.next
+        return  None
 
     def erase(self, index=None) -> None:
         ''' function to erase a Node by it's index '''
@@ -203,5 +222,5 @@ node_list2.insertNode(15)
 node_list2.insertNode(7)
 
 node_list.display()
-node_list.reverse_between(5, 4)
+print(node_list.find_index_by_value(100))
 node_list.display()
