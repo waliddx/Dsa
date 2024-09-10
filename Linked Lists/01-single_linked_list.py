@@ -30,8 +30,7 @@ class LinkedList:
         while currentNode:
             print(f"{currentNode.value}", end=" -> ")
             currentNode = currentNode.next
-        print("null")
-        return
+        print("None")
     
     def length(self) -> int:
         ''' function to get the length of the linked list '''
@@ -65,7 +64,6 @@ class LinkedList:
                 return 
             currentNode = currentNode.next
             current_idx += 1
-        return
 
     def erase(self, index=None) -> None:
         ''' function to erase a Node by it's index '''
@@ -106,11 +104,9 @@ class LinkedList:
                     currentNode.value, currentNode.next.value = currentNode.next.value, currentNode.value
                     switched = True
                 currentNode = currentNode.next
-        return
     
     def reverse(self) -> None:
         ''' function to reverse a linked list '''
-
         previousNode = None
         currentNode = self.head
 
@@ -124,9 +120,29 @@ class LinkedList:
             currentNode = next_node
         # initialize the head with the last truthy element in the linked list
         self.head = previousNode
+    
+    def merge(self, linked, sorted=False) -> None:
+        ''' function to merge two linkedlist 
+             - if sorted it True return sorted merged linkedlist
+             - if sorted is False return unsorted merged linkedlist
+        '''   
+        if not self.head:
+            self.head = linked.head
+            return
+        
+        currentNode = self.head
+        while currentNode.next:
+            currentNode = currentNode.next
+
+        # return the None value to the head of the new linked list
+        currentNode.next = linked.head
+
+        if sorted:
+            self.sort()
         return
 
 node_list = LinkedList()
+node_list2 = LinkedList()
 
 node_list.insertNode(5)
 node_list.insertNode(6)
@@ -135,6 +151,13 @@ node_list.insertNode(21)
 node_list.insertNode(1)
 node_list.insertNode(8)
 
+node_list2.insertNode(20)
+node_list2.insertNode(15)
+node_list2.insertNode(7)
+node_list2.insertNode(38)
+node_list2.insertNode(9)
+node_list2.insertNode(12)
+
 node_list.display()
-node_list.reverse()
+node_list.merge(node_list2, sorted=True)
 node_list.display()
