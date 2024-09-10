@@ -221,7 +221,7 @@ class LinkedList:
             return
         
         currentNode = self.head
-        while currentNode:
+        while currentNode.next:
             currentNode = currentNode.next
 
         # return the None value to the head of the new linked list
