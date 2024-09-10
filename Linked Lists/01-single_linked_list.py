@@ -120,6 +120,53 @@ class LinkedList:
             currentNode = next_node
         # initialize the head with the last truthy element in the linked list
         self.head = previousNode
+
+    def reverse_between(self, left=None, right=None) -> None:
+        ''' function to reverse a chosen part from left to right of the linkedlist '''
+        length = self.length()
+
+        # raise error if left and right are not integeres
+        if not isinstance(left, int) and not isinstance(right, int):
+            raise TypeError("'reverse_between' left and right parameters are a Nonetype, expected intergers")
+
+        # swap index if left bigger than right to avoid conflict
+        if left > right:
+            left, right = right, left
+
+        # raise error if left and right are not in the linkedlist range
+        if left < 0 or right >= length or left > right:
+            raise IndexError("'reverse_between' indexes are out of range")
+        
+        # no need to go through loops if left = right
+        if left == right:
+            return
+        
+        # add dummy node to make process easier
+        dummy = Node(0, self.head)
+
+        left_previous = dummy
+
+        # reach the node at position "left"
+        for _ in range(left):
+            left_previous = left_previous.next
+
+        # reverse from left to right
+        currentNode = left_previous.next
+        previous = None
+        for _ in range(right-left+1):
+            nextNode = currentNode.next
+            currentNode.next = previous
+
+            previous = currentNode
+            currentNode = nextNode
+        
+        # update pointers 
+        left_previous.next.next = currentNode
+        left_previous.next = previous
+
+        if left == 0:
+            self.head = previous
+            return         
     
     def merge(self, linked, sorted=False) -> None:
         ''' function to merge two linkedlist 
@@ -147,11 +194,14 @@ node_list2 = LinkedList()
 node_list.insertNode(5)
 node_list.insertNode(6)
 node_list.insertNode(9)
+node_list.insertNode(8)
+node_list.insertNode(12)
+node_list.insertNode(21)
 
 node_list2.insertNode(20)
 node_list2.insertNode(15)
 node_list2.insertNode(7)
 
 node_list.display()
-node_list.merge(node_list2, sorted=True)
+node_list.reverse_between(5, 4)
 node_list.display()
