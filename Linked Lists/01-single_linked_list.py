@@ -260,6 +260,51 @@ class LinkedList:
 
         if sorted:
             self.sort()
+
+    def get_middle(self) -> None:
+        ''' function to get the right middle of a linkedlist '''
+        fast = self.head
+        slow = self.head
+
+        while fast and fast.next:
+            fast = fast.next.next
+            slow = slow.next
+
+        self.head = slow
+
+    def split(self, num=None):
+        ''' function to split linked list into desired parts'''
+        if not self.head:
+            return [[] for _ in range(num)]
+        
+        if num is None:
+            num = 2
+        
+        if not isinstance(num, int):
+            raise TypeError("[split] expected an integer as an argument")
+        
+        if num == 0:
+            raise ZeroDivisionError("[split] cannot split a list into zero parts")
+        
+        length = self.length()
+        
+        parts = length // num
+        remaining = length % num
+
+        head_container = []
+        currentNode = self.head
+        for i in range(num):
+            heads_size = parts + (1 if i < remaining else 0)
+
+            child = []
+            for j in range(heads_size):
+                if currentNode:
+                    child.append(currentNode.value)
+                    currentNode = currentNode.next
+            
+            head_container.append(child)
+
+        return head_container
         
 node_list = LinkedList()
 node_list2 = LinkedList()
@@ -278,5 +323,5 @@ node_list.append_node(5)
 # node_list2.append_node(13)
 
 node_list.display()
-node_list.insert_node(10, 15)
+print(node_list.split(20))
 node_list.display()
