@@ -3,6 +3,7 @@ A Linked List is, as the word implies, a list where the nodes are linked togethe
 The way they are linked together is that each node points to where in the memory the next node is placed.
 """
 from typing import Union
+
 class Node:
     def __init__(self, value, next=None) -> None:
         self.value = value
@@ -12,8 +13,8 @@ class LinkedList:
     def __init__(self, head=None) -> None:
         self.head = head
     
-    def insert_node(self, value) -> None:
-        '''function to insert a new node to the linked list'''
+    def append_node(self, value) -> None:
+        ''' function to insert a new node to the end of linked list '''
         node = Node(value)
         if self.head is None:
             self.head = node
@@ -24,9 +25,39 @@ class LinkedList:
                 currentNode.next = node
                 break
             currentNode = currentNode.next
+    
+    def insert_node(self,value, index=None) -> None:
+        ''' function to insert node at the given index \n
+            if no index was passed it will automatically be inserted at first position
+        '''
+        if index is not None and index < 0 :
+            raise IndexError("[insert_node] index should be greater or equal to '0'")
+        
+        if not self.head:
+            self.head = Node(value)
+            return
+        
+        if index is None or index == 0:
+            node = Node(value, self.head)
+            self.head = node
+            return
+        
+        node = Node(value)
+        current_idx = 0
+        currentNode = self.head
+        while currentNode and currentNode.next:
+            if current_idx == index:
+                nextNode = currentNode.next
+                currentNode.next = node
+                currentNode.next.next = nextNode
+                return
+            current_idx += 1
+            currentNode = currentNode.next
+        # insert node at the end if index is greater than the length of linkedlist
+        currentNode.next = node     # no need to call append method to avoid looping again over the nodes
             
     def display(self) -> None:
-        ''' function to display nodes value found in linked list'''
+        ''' function to display nodes value found in linked list '''
         currentNode = self.head
         while currentNode:
             print(f"{currentNode.value}", end=" -> ")
@@ -68,12 +99,12 @@ class LinkedList:
             current_idx += 1
     
     def find_index_by_value(self, val=None) -> Union[str, int, None]:
-        ''' function to return index of first val found in linkedlist'''
+        ''' function to return index of first val found in linkedlist '''
         if val is None:
             raise TypeError("[find_index_by_value] val parameters is a Nonetype")
         
         if self.head is None:
-            return "linked list is empty"
+            return "linkedlist is empty"
         
         currentNode = self.head
         current_idx = 0
@@ -233,19 +264,19 @@ class LinkedList:
 node_list = LinkedList()
 node_list2 = LinkedList()
 
-node_list.insert_node(8)
-node_list.insert_node(5)
-node_list.insert_node(6)
-node_list.insert_node(5)
-node_list.insert_node(7)
-node_list.insert_node(5)
+node_list.append_node(8)
+node_list.append_node(5)
+node_list.append_node(6)
+node_list.append_node(5)
+node_list.append_node(7)
+node_list.append_node(5)
 
-node_list2.insert_node(31)
-node_list2.insert_node(58)
-node_list2.insert_node(0)
-node_list2.insert_node(2)
-node_list2.insert_node(13)
+# node_list2.append_node(31)
+# node_list2.append_node(58)
+# node_list2.append_node(0)
+# node_list2.append_node(2)
+# node_list2.append_node(13)
 
 node_list.display()
-node_list.remove_by_value(5)
+node_list.insert_node(10, 15)
 node_list.display()
