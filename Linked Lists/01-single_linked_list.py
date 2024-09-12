@@ -302,6 +302,17 @@ class LinkedList:
             head_container.append(child)
 
         return head_container
+    
+    def to_circular(self) -> None:
+        ''' function that switch standard singly linkedlist to a circular singly linked list '''
+        if not self.head:
+            return
+        
+        currentNode = self.head
+        while currentNode.next is not None:
+            currentNode = currentNode.next
+        
+        currentNode.next = self.head
         
 node_list = LinkedList()
 node_list2 = LinkedList()
