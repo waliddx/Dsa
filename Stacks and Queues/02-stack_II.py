@@ -12,6 +12,7 @@ class Node:
 class Stack:
     def __init__(self, head=None):
         self.head = self.tail = None
+        self.len = 0
 
     def push(self, value: Any) -> None:
         ''' function to push element at the end '''
@@ -21,12 +22,14 @@ class Stack:
         node = Node(value)
         if not self.head:
             self.head = self.tail = node
+            self.len += 1
             return
         
         self.tail.next = node
         self.tail = self.tail.next
+        self.len += 1
 
-    def pop(self) -> bool:
+    def pop(self) -> None:
         ''' function to delete last element '''
         if not self.head:
             raise IndexError("[pop] pop from an empty stack")
@@ -39,16 +42,11 @@ class Stack:
                 currentNode = currentNode.next
             currentNode.next = None
             self.tail = currentNode
-        return True
+        self.len -= 1
 
     def size(self) -> int:
         ''' function to get stack size '''
-        length = 0
-        currentNode = self.head
-        while currentNode:
-            length += 1
-            currentNode = currentNode.next
-        return length
+        return self.len
     
     def peek(self) -> Any:
         ''' function to get last element '''
@@ -63,6 +61,7 @@ class Stack:
     def clear(self) -> None:
         ''' function to clear the whole stack '''
         self.head = self.tail = None
+        self.len = 0
 
     def contains(self, value: Any) -> bool:
         ''' function to check if a value is in the stack '''
@@ -104,3 +103,4 @@ print(stack.contains(5))  # Output: True
 print(stack.peek())  # Output: 6
 stack.clear()
 print(stack.isEmpty())  # Output: True
+print(stack.size())
