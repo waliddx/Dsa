@@ -12,22 +12,25 @@ from typing import Union, Any
 class Stack:
     def __init__(self):
         self.stack = []
+        self.len = 0
     
     def push(self, value) -> None:
         ''' function to push element at the end '''
         if value is None:
             raise TypeError("[push] can't push a NoneType value")
+        self.len += 1
         self.stack.append(value)
     
     def pop(self) -> Union[int, None]:
         ''' function to delete last element '''
         if not self.stack:
             raise IndexError("[pop] pop from an empty list")
+        self.len -= 1
         return self.stack.pop()
 
     def size(self) -> int:
         ''' function to get stack size '''
-        return len(self.stack)
+        return self.len
     
     def peek(self) -> Any:
         ''' function to get last element '''
@@ -42,6 +45,7 @@ class Stack:
     def clear(self) -> None:
         ''' function to clear the whole stack '''
         self.stack.clear()
+        self.len = 0
 
     def contains(self, value=None) -> bool:
         ''' function to check if a value is in the stack '''
