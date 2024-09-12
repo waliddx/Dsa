@@ -304,7 +304,7 @@ class LinkedList:
         return head_container
     
     def to_circular(self) -> None:
-        ''' function that switch standard singly linkedlist to a circular singly linked list '''
+        ''' function that switch standard singly linkedlist to a circular singly linkedlist '''
         if not self.head:
             return
         
