@@ -12,19 +12,16 @@ class Node:
 class LinkedList:
     def __init__(self, head=None) -> None:
         self.head = head
+        self.tail = head
     
     def append_node(self, value) -> None:
         ''' function to insert a new node to the end of linked list '''
         node = Node(value)
         if self.head is None:
-            self.head = node
+            self.head = self.tail = node
             return
-        currentNode = self.head
-        while currentNode:
-            if currentNode.next is None:
-                currentNode.next = node
-                break
-            currentNode = currentNode.next
+        self.tail.next = node
+        self.tail = self.tail.next
     
     def insert_node(self,value, index=None) -> None:
         ''' function to insert node at the given index \n
@@ -323,5 +320,5 @@ node_list.append_node(5)
 # node_list2.append_node(13)
 
 node_list.display()
-print(node_list.split(20))
+node_list.sort()
 node_list.display()
