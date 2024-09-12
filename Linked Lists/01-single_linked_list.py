@@ -272,7 +272,7 @@ class LinkedList:
 
         self.head = slow
 
-    def split(self, num=None):
+    def split(self, num=None) -> list:
         ''' function to split linked list into desired parts'''
         if not self.head:
             return [[] for _ in range(num)]
