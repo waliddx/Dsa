@@ -2,7 +2,7 @@
 Just like previous queue but using LinkedList
 """
 
-from typing import Union, Any
+from typing import Any
 
 class Node:
     def __init__(self, value):
