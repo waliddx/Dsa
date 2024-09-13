@@ -5,13 +5,13 @@ Just like previous stack but using LinkedList
 from typing import Any
 
 class Node:
-    def __init__(self, value, next=None):
+    def __init__(self, value):
         self.value = value
         self.next = None
 
 class Stack:
     def __init__(self, head=None):
-        self.head = self.tail = None
+        self.head = self.tail = head
         self.len = 0
 
     def push(self, value: Any) -> None:
