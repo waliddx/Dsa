@@ -13,4 +13,4 @@ for i in range(n):
             min_idx = j
     my_array[i], my_array[min_idx] = my_array[min_idx], my_array[i]
 
-print(my_array)
+print(my_array) # Output: [1, 1, 5, 11, 12, 22, 25, 34, 64, 90]
