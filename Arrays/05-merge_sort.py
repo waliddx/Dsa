@@ -37,6 +37,7 @@ def mergeSort(array):
         
         step *= 2   # Double the sub-array length for the next iteration
 
+# test Array:
 my_array = [3, 7, 6, -10, 15, 23, 55, -13, 24]
 mergeSort(my_array)
 print(my_array)
