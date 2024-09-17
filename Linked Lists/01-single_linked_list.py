@@ -163,18 +163,63 @@ class LinkedList:
                 currentNode = currentNode.next
  
     def sort(self, reverse=False) -> None:
-        ''' function to sort nodes from smallest int to biggest '''
-        switched = True
-        while switched:
-            switched = False
-            currentNode = self.head
-            while currentNode.next is not None:
-                if currentNode.value > currentNode.next.value:
-                    currentNode.value, currentNode.next.value = currentNode.next.value, currentNode.value
-                    switched = True
+        ''' function to sort nodes asc or desc if reverse is True '''
+        if not self.head or not self.head.next:
+            return self.head
+        
+        def split(head):
+            ''' function splits linked list into individual parts '''
+            if not head or not head.next:
+                return head, None
+            
+            slow = head
+            fast = head.next
+
+            while fast and fast.next:
+                slow = slow.next
+                fast = fast.next.next
+            
+            mid = slow.next
+            slow.next = None
+
+            return head, mid
+        
+        def merge(left, right):
+            ''' function merge halves '''
+            dummy = LinkedList()
+            currentNode = dummy
+
+            while left and right:
+                if left.value < right.value:
+                    currentNode.next = left
+                    left = left.next
+                else:
+                    currentNode.next = right
+                    right = right.next
                 currentNode = currentNode.next
+            
+            if left:
+                currentNode.next = left
+            else:
+                currentNode.next = right
+            
+            return dummy.next
+        
+        def merge_sort(head):
+            ''' recursive function keeps iterating spliting linkedlist into pieces '''
+            if not head or not head.next:
+                return head
+            
+            left_half, right_half = split(head)
+
+            left_sorted = merge_sort(left_half)
+            right_sorted = merge_sort(right_half)
+
+            return merge(left_sorted, right_sorted)
+        
+        self.head = merge_sort(self.head)
+        
         if reverse:
-            #if reverse is True reverse the sorted linkedlist
             self.reverse()
     
     def reverse(self) -> None:
@@ -331,5 +376,5 @@ node_list.append_node(5)
 # node_list2.append_node(13)
 
 node_list.display()
-node_list.sort()
+node_list.sort(reverse=True)
 node_list.display()
